@@ -1,1 +1,10 @@
-langchain
+langgraph==0.6.8
+langchain_community==0.3.30
+langchain_core==0.3.78
+tavily-python==0.7.12
+wikipedia==1.4.0
+langchain-openai==0.3.32
+langchain-google-genai==2.1.8
+langchain-groq==0.3.6
+structlog==25.4.0
+-e .
