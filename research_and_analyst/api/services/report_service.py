@@ -7,16 +7,14 @@ from research_and_analyst.logger import GLOBAL_LOGGER
 from research_and_analyst.exception.custom_exception import ResearchAnalystException
 from langgraph.checkpoint.memory import MemorySaver
 
-
 _shared_memory = MemorySaver()
-
 
 class ReportService:
     def __init__(self):
         self.llm = ModelLoader().load_llm()
         self.reporter = AutonomousReportGenerator(self.llm)
-        self.reporter.memory = _shared_memory 
         self.graph = self.reporter.build_graph()
+        self.reporter.memory = _shared_memory 
         self.logger = GLOBAL_LOGGER.bind(module="ReportService")
 
     def start_report_generation(self, topic: str, max_analysts: int):
@@ -46,29 +44,7 @@ class ReportService:
         except Exception as e:
             self.logger.error("Error updating feedback", error=str(e))
             raise ResearchAnalystException("Failed to update feedback", e)
-
-    # def get_report_status(self, thread_id: str):
-    #     """Fetch latest state or final report."""
-    #     try:
-    #         thread = {"configurable": {"thread_id": thread_id}}
-    #         state = self.graph.get_state(thread)
-    #         if not state:
-    #             self.logger.warning("No state found for thread", thread_id=thread_id)
-    #             return {"status": "not_found"}
-
-    #         final_report = state.values.get("final_report")
-    #         if final_report:
-    #             file_docx = self.reporter.save_report(final_report, "AI_Report", "docx")
-    #             file_pdf = self.reporter.save_report(final_report, "AI_Report", "pdf")
-    #             return {
-    #                 "status": "completed",
-    #                 "docx_path": file_docx,
-    #                 "pdf_path": file_pdf,
-    #             }
-    #         return {"status": "in_progress"}
-    #     except Exception as e:
-    #         self.logger.error("Error fetching report status", error=str(e))
-    #         raise ResearchAnalystException("Failed to fetch report status", e)
+        
     def get_report_status(self, thread_id: str):
         """Fetch latest state or final report."""
         try:
