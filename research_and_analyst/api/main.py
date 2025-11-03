@@ -25,5 +25,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+#health check have been added
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for container orchestration"""
+    return {
+        "status": "healthy",
+        "service": "research-report-generation",
+        "timestamp": datetime.now().isoformat()
+    }
+
 # Register Routes
 app.include_router(report_routes.router)
