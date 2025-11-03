@@ -5,7 +5,7 @@
 
 set -e
 
-# Configuration
+# Configuration for deployment
 APP_RESOURCE_GROUP="research-report-app-rg"
 LOCATION="eastus"
 APP_ACR_NAME="researchreportacrdell"
