@@ -8,9 +8,12 @@ set -e
 # Configuration
 RESOURCE_GROUP="research-report-jenkins-rg"
 LOCATION="eastus"
-STORAGE_ACCOUNT="reportjenkinsstore"
+STORAGE_ACCOUNT="reportjenkinsstoredell"
+#STORAGE_ACCOUNT="rjstore$(date +%s | tail -c 5)"
+
+
 FILE_SHARE="jenkins-data"
-ACR_NAME="reportjenkinsacr"
+ACR_NAME="reportjenkinsacrdell"
 CONTAINER_NAME="jenkins-research-report"
 DNS_NAME_LABEL="jenkins-research-$(date +%s | tail -c 6)"
 JENKINS_IMAGE_NAME="custom-jenkins"
@@ -35,6 +38,9 @@ fi
 if [ -n "$SUBSCRIPTION_ID" ]; then
     echo "📋 Setting Azure subscription to: $SUBSCRIPTION_ID"
     az account set --subscription "$SUBSCRIPTION_ID"
+    # Remove any stray carriage returns or newlines
+    #SUBSCRIPTION_ID=$(echo "$SUBSCRIPTION_ID" | tr -d '\r\n')
+
     if [ $? -ne 0 ]; then
         echo "❌ Failed to set subscription. Please verify the subscription ID."
         exit 1
