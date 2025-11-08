@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from research_and_analyst.api.routes import report_routes
+from datetime import datetime
 
 app = FastAPI(title="Autonomous Report Generator UI")
 
